@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sunyard.myproject.mapper.TopicMapper">
+    <resultMap id="TopicResultMap" type="com.sunyard.myproject.entity.Topic">
+        <id column="id" property="id" jdbcType="VARCHAR"></id>
+        <result column="name" property="name" jdbcType="VARCHAR"></result>
+        <result column="teacher" property="teacher" jdbcType="VARCHAR"/>
+        <result column="number" property="number" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="findById" parameterType="String" resultMap="TopicResultMap">
+        select * from topic where id=#{id}
+    </select>
+    <select id="findAll" parameterType="String" resultMap="TopicResultMap">
+        select * from topic
+    </select>
+    <update id="update" parameterType="com.sunyard.myproject.entity.Topic">
+        UPDATE topic set number=#{number,jdbcType=VARCHAR}
+         where id=#{id,jdbcType=VARCHAR}
+    </update>
+</mapper>
