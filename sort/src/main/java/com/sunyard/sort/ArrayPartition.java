@@ -12,7 +12,7 @@ public class ArrayPartition {
         for(int j:arr){
             System.out.print(j+",");
         }
-        System.out.println();
+        System.out.print("\n");
         int left=-1;
         int right=arr.length;
         int pivot=99;
