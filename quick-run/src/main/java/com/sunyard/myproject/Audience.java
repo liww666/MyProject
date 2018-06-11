@@ -29,14 +29,16 @@ public class Audience {
     }
 
     @Around("performance()")
-    public void watchPerformace(ProceedingJoinPoint jp){
+    public Object watchPerformace(ProceedingJoinPoint jp){
         try {
             logger.info("Around before!!!");
 //            System.out.println("Taking seats");
-            jp.proceed();
+            Object obj=jp.proceed();
             logger.info("Around after!!!");
+            return obj;
         } catch (Throwable e) {
             logger.info("Catch exception!!!");
         }
+        return null;
     }
 }

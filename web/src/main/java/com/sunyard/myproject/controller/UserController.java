@@ -2,6 +2,7 @@ package com.sunyard.myproject.controller;
 
 import com.sunyard.myproject.entity.Topic;
 import com.sunyard.myproject.service.TopicService;
+import com.sunyard.myproject.vo.TopicVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,5 +38,12 @@ public class UserController {
 //        topic.setNumber(number);
         String result=topicService.check(topic);
         return result;
+    }
+
+    @RequestMapping("/get")
+    public String get(String id,Model model){
+        TopicVo vo=topicService.findById(id);
+        model.addAttribute("topicVo",vo);
+        return "topic_detail";
     }
 }

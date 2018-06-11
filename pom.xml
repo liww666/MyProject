@@ -21,6 +21,7 @@
         <module>parent</module>
         <module>manager</module>
         <module>design-pattern</module>
+        <module>sort</module>
     </modules>
     <packaging>pom</packaging>
     <properties>

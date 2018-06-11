@@ -1,12 +1,11 @@
-package com.sunyard.myproject.entity;
-
+package com.sunyard.myproject.vo;
 
 import java.io.Serializable;
 
 /**
- * Created by Administrator on 2018/4/5.
+ * Created by Administrator on 2018/6/9.
  */
-public class Topic implements Serializable{
+public class TopicVo implements Serializable {
     private String id ;
     private String  name;
     private String  teacher;

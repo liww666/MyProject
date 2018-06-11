@@ -4,6 +4,7 @@ import com.sunyard.myproject.entity.Topic;
 import com.sunyard.myproject.exception.TopicNotFoundException;
 import com.sunyard.myproject.mapper.TopicMapper;
 import com.sunyard.myproject.service.TopicService;
+import com.sunyard.myproject.vo.TopicVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +22,17 @@ public class TopicServiceImpl implements TopicService {
     @Override
     public List<Topic> findAll() {
         return this.topicMapper.findAll();
+    }
+
+    @Override
+    public TopicVo findById(String id) {
+        Topic topic=topicMapper.findById(id);
+        TopicVo vo=new TopicVo();
+        vo.setId(topic.getId());
+        vo.setNumber(topic.getNumber());
+        vo.setTeacher(topic.getTeacher());
+        vo.setName(topic.getName());
+        return vo;
     }
 
     @Override
