@@ -1,12 +1,15 @@
 package com.sunyard.myproject.config;
 
+import com.sunyard.myproject.security.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
 
 import javax.sql.DataSource;
@@ -20,6 +23,12 @@ import javax.sql.DataSource;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
+
+    @Bean
+    public  UserDetailsService myUserDetailsService() {
+        return new MyUserDetailsService();
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -37,14 +46,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 /**
  * inMemoryAuthentication
  */
-        auth.inMemoryAuthentication().withUser("user").password("user").roles("USER").and().
-                withUser("admin").password("admin").roles("ADMIN","USER");
-//        auth.jdbcAuthentication().dataSource(dataSource).usersByUsernameQuery("" +
-//                " select username,password,true " +
-//                " from tb_user where username=?")
-//        .authoritiesByUsernameQuery(" select username,'ROLE_USER' " +
-//                " from tb_user where username=? ")
+//        auth.inMemoryAuthentication().withUser("user").password("user").roles("USER").and().
+//                withUser("admin").password("admin").roles("ADMIN","USER");
+
+        /*
+        jdbcAuthentication
+         */
+        auth.jdbcAuthentication().dataSource(dataSource).usersByUsernameQuery("" +
+                " select username,password,true " +
+                " from tb_user where username=?")
+        .authoritiesByUsernameQuery(" select username,'ROLE_USER' " +
+                " from tb_user where username=? ");
 //        .passwordEncoder(new StandardPasswordEncoder("53cr3t"));
+
+        /*
+        自定义UserDetailsService
+         */
+//        auth.userDetailsService(myUserDetailsService());
     }
+
 }
 
