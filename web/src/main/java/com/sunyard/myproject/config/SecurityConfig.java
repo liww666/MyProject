@@ -33,7 +33,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/*").access("hasRole('USER')")
+                .antMatchers("/topic").access("hasRole('ADMIN')")
+                .anyRequest().hasRole("USER")
+//                .antMatchers("/**").access("hasRole('USER')")
 //                .antMatchers("/**").permitAll()
                 .and()
                 .formLogin()
@@ -52,17 +54,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         /*
         jdbcAuthentication
          */
-        auth.jdbcAuthentication().dataSource(dataSource).usersByUsernameQuery("" +
-                " select username,password,true " +
-                " from tb_user where username=?")
-        .authoritiesByUsernameQuery(" select username,'ROLE_USER' " +
-                " from tb_user where username=? ");
+//        auth.jdbcAuthentication().dataSource(dataSource).usersByUsernameQuery("" +
+//                " select username,password,true " +
+//                " from tb_user where username=?")
+//        .authoritiesByUsernameQuery(" select username,'ROLE_USER' " +
+//                " from tb_user where username=? ");
 //        .passwordEncoder(new StandardPasswordEncoder("53cr3t"));
 
         /*
         自定义UserDetailsService
          */
-//        auth.userDetailsService(myUserDetailsService());
+        auth.userDetailsService(myUserDetailsService());
     }
 
 }
