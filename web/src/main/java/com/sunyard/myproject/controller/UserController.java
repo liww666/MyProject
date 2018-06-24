@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -32,7 +33,7 @@ public class UserController {
     }
     //检查选题的逻辑
     @RequestMapping(value = "/check",method = RequestMethod.POST)
-    public String checkTopic(Topic topic){
+    public String checkTopic(HttpServletRequest request,Topic topic){
 //        String id=request.getParameter("id");
 //        String number=request.getParameter("number");
 //        Topic topic=new Topic();

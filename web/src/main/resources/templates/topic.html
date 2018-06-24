@@ -35,9 +35,12 @@
     </tbody>
 </table>
 <form action="/check" method="post">
-    <p>选择你要选的题目的序号: <input type="text" name="id" /></p>
-    <p>你的学号（比如二班1号：“2-1”）: <input type="text" name="number" /></p>
-    <input type="submit" value="确认" />
+    <!--thymeleaf 标签最好加上th-->
+    <p>选择你要选的题目的序号: <input th:type="text" th:name="id" /></p>
+    <p>你的学号（比如二班1号：“2-1”）: <input th:type="text" th:name="number" /></p>
+    <input th:type="hidden" th:name="${_csrf.parameterName}"
+           th:value="${_csrf.token}"/>
+    <input th:type="submit" th:value="确认" />
 </form>
 
 
