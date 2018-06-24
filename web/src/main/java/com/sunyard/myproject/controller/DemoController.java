@@ -2,8 +2,10 @@ package com.sunyard.myproject.controller;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,11 +21,14 @@ import java.security.Principal;
 @EnableConfigurationProperties
 public class DemoController {
 
-    @RequestMapping("/")
+    @RequestMapping("/hello")
     public String doSome(Model model){
-        User user=(User)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        model.addAttribute("name", user.getUsername());
-        model.addAttribute("userId",user.getPassword());
+        Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+        User user=(User)(authentication==null?null:authentication.getPrincipal());
+        if(user!=null){
+            model.addAttribute("name", user.getUsername());
+            model.addAttribute("userId",user.getPassword());
+        }
         return "Hello";
     }
 

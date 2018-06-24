@@ -4,6 +4,8 @@ import com.sunyard.myproject.entity.Topic;
 import com.sunyard.myproject.service.TopicService;
 import com.sunyard.myproject.vo.TopicVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,6 +44,7 @@ public class UserController {
 
     @RequestMapping("/get")
     public String get(String id,Model model){
+        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
         TopicVo vo=topicService.findById(id);
         model.addAttribute("topicVo",vo);
         return "topic_detail";

@@ -7,13 +7,18 @@
         <result column="password" property="password"/>
         <collection property="roles" ofType="com.sunyard.myproject.entity.SysRole">
             <result column="name" property="name"></result>
+            <collection property="auths" ofType="com.sunyard.myproject.entity.SysAuth">
+                <result column="auth_name" property="name"></result>
+            </collection>
         </collection>
     </resultMap>
     <select id="findByUsername" parameterType="String" resultMap="SysUserResultMap">
-        SELECT t1.*,t3.name
+        SELECT t1.*,t3.name,t5.name as auth_name
         FROM SYS_USER t1
         LEFT JOIN SYS_ROLE_USER t2 on t1.id= t2.Sys_User_id
         LEFT JOIN Sys_Role t3 on t2.Sys_Role_id=t3.id
+        LEFT JOIN SYS_ROLE_AUTH t4 on t3.id=t4.Sys_Role_id
+        LEFT JOIN SYS_AUTH t5 on t4.Sys_Auth_id=t5.id
         where t1.username= #{username}
     </select>
 

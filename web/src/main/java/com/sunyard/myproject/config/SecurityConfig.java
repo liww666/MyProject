@@ -1,5 +1,6 @@
 package com.sunyard.myproject.config;
 
+import com.sunyard.myproject.security.MySecurityFilter;
 import com.sunyard.myproject.security.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -7,10 +8,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 
 import javax.sql.DataSource;
 
@@ -24,6 +27,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
 
+    @Autowired
+    private MySecurityFilter mySecurityFilter;
+
     @Bean
     public  UserDetailsService myUserDetailsService() {
         return new MyUserDetailsService();
@@ -32,15 +38,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .addFilterBefore(mySecurityFilter, FilterSecurityInterceptor.class)
                 .authorizeRequests()
-                .antMatchers("/topic").access("hasRole('ADMIN')")
-                .anyRequest().hasRole("USER")
+                .anyRequest().authenticated()
+//                .antMatchers("/topic").access("hasRole('ADMIN')")
+//                .anyRequest().hasRole("USER")
 //                .antMatchers("/**").access("hasRole('USER')")
 //                .antMatchers("/**").permitAll()
                 .and()
                 .formLogin()
 //                .loginPage("/login")
                 .failureUrl("/login?error=true");
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        /*
+        忽视的请求会被所有的springSecurity所有的过滤器忽略，
+        意味着在该请求中不能通过SecurityContextHolder获取用户信息
+         */
+        web.ignoring().antMatchers("/hello");
     }
 
     @Override
