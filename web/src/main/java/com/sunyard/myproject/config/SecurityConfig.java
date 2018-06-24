@@ -1,5 +1,6 @@
 package com.sunyard.myproject.config;
 
+import com.sunyard.myproject.security.LoginSuccessHandler;
 import com.sunyard.myproject.security.MySecurityFilter;
 import com.sunyard.myproject.security.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +49,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
 //                .loginPage("/login")
-                .failureUrl("/login?error=true");
+//                .permitAll()
+                .successHandler(loginSuccessHandler())
+                .failureUrl("/login?error=true")
+                .and()
+                .logout()
+                .invalidateHttpSession(true);
     }
 
     @Override
@@ -82,6 +88,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         自定义UserDetailsService
          */
         auth.userDetailsService(myUserDetailsService());
+    }
+
+    @Bean
+    public LoginSuccessHandler loginSuccessHandler(){
+        return new LoginSuccessHandler();
     }
 
 }

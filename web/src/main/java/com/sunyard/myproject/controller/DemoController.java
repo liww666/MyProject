@@ -23,6 +23,9 @@ public class DemoController {
 
     @RequestMapping("/hello")
     public String doSome(Model model){
+        /*
+        因为/hello请求被ingore,所以获取不到当前用户的信息
+         */
         Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
         User user=(User)(authentication==null?null:authentication.getPrincipal());
         if(user!=null){

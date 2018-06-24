@@ -11,17 +11,17 @@ import java.util.List;
  * Created by Administrator on 2018/6/18.
  */
 public class MyUserDetails implements UserDetails {
-    public MyUserDetails(String username, String password, List<SimpleGrantedAuthority> authorities) {
+    private String username;
+
+    private String password;
+    private List<GrantedAuthority> authorities;
+    public MyUserDetails(String username, String password, List<GrantedAuthority> authorities) {
         this.username = username;
         this.password = password;
         this.authorities = authorities;
     }
-
-    private String username;
-    private String password;
-    private List<SimpleGrantedAuthority> authorities;
     @Override
-    public List<SimpleGrantedAuthority> getAuthorities() {
+    public List<GrantedAuthority> getAuthorities() {
         return this.authorities;
     }
 
@@ -37,21 +37,21 @@ public class MyUserDetails implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }

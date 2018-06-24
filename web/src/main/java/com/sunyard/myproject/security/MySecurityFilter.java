@@ -38,7 +38,7 @@ public class MySecurityFilter extends AbstractSecurityInterceptor implements Fil
 
     @Override
     public SecurityMetadataSource obtainSecurityMetadataSource() {
-        System.out.println("filtergergetghrthetyetyetyetyj");
+        System.out.println("obtainSecurityMetadataSource");
         return this.mySecurityMetadataSource;
     }
 

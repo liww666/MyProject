@@ -38,7 +38,7 @@ public class MyUserDetailsService implements UserDetailsService {
                 System.out.println(auth.getName());
             }
         }
-        return new org.springframework.security.core.userdetails.User(sysUser.getUsername(),
+        return new MyUserDetails(sysUser.getUsername(),
                 sysUser.getPassword(), authorities);
     }
 }
