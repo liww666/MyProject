@@ -17,7 +17,10 @@ import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 
 import javax.sql.DataSource;
-
+/*
+@importResource:Indicates one or more resources containing bean definitions to import.
+@import :Indicates one or more @Configuration classes to import.
+ */
 /**
  * Created by Administrator on 2018/4/1.
  */
