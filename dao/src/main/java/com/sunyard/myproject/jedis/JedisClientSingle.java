@@ -30,17 +30,26 @@ public class JedisClientSingle implements JedisClient {
 
     @Override
     public String set(String key, String value) {
-        return null;
+        Jedis jedis=jedisPool.getResource();
+        String str=jedis.set(key,value);
+        jedis.close();
+        return str;
     }
 
     @Override
     public String hget(String hkey, String key) {
-        return null;
+        Jedis jedis=jedisPool.getResource();
+        String value=jedis.hget(hkey,key);
+        jedis.close();
+        return value;
     }
 
     @Override
     public long hset(String hkey, String key, String value) {
-        return 0;
+        Jedis jedis=jedisPool.getResource();
+        long num=jedis.hset(hkey,key,value);
+        jedis.close();
+        return num;
     }
 
     @Override
@@ -65,6 +74,9 @@ public class JedisClientSingle implements JedisClient {
 
     @Override
     public long hdel(String hkey, String key) {
-        return 0;
+        Jedis jedis=jedisPool.getResource();
+        long num=jedis.hdel(hkey,key);
+        jedis.close();
+        return num;
     }
 }
