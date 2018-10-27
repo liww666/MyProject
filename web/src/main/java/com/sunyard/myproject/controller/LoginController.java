@@ -11,9 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 @RequestMapping("/")
 public class LoginController {
-    @RequestMapping("/login")
+    @RequestMapping("/")
     public String toLogin(HttpServletRequest request){
         System.out.println(request.getClass().getName());
-        return "login";
+        return "main";
     }
 }

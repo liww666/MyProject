@@ -21,10 +21,10 @@ import java.util.List;
 public class MyUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private SysUserMapper sysUserMapper;
+    private SysUserService sysUserService;
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        SysUser sysUser=sysUserMapper.findByUsername(s);
+        SysUser sysUser=sysUserService.findByUsername(s);
         if(sysUser == null){
             throw new UsernameNotFoundException("用户名不存在");
         }

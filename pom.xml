@@ -23,6 +23,8 @@
         <module>design-pattern</module>
         <module>sort</module>
         <module>spring-session</module>
+        <module>multi-thread</module>
+        <module>effective-java</module>
     </modules>
     <packaging>pom</packaging>
     <properties>

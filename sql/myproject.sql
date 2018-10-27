@@ -18,6 +18,19 @@ create table sys_role_user (
 	primary key (id)
 )COMMENT='系统角色用户表';
 
+CREATE TABLE `sys_auth` (
+  `id` int(11) NOT NULL DEFAULT '0',
+  `name` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统权限表';
+
+CREATE TABLE `sys_role_auth` (
+  `id` int(11) NOT NULL DEFAULT '0',
+  `sys_role_id` int(11) DEFAULT NULL,
+  `sys_auth_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统角色权限表';
+
 insert into SYS_USER (id,username, password) values (1,'admin', 'admin');
 insert into SYS_USER (id,username, password) values (2,'abel', 'abel');
 
